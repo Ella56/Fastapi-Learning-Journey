@@ -18,9 +18,28 @@ name_lst = [
 def root():
     return {'message':'Hello World!'}
 
-@app.get("/name")
+
+#/names (GET(RETRIEVE), POST(CREATE))
+@app.get("/names")
 def names():
     return name_lst
+
+
+
+
+
+#/names/:id (GET(RETRIVE),PUT/PATCH(UPDATE),DELETE)
+@app.get("/names/{name_id}")
+def get_name_detail(name_id:int):
+    for name in name_lst:
+        if name["id"] == name_id:
+            return  name
+    return {"detail" : "object not found"}
+
+
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", port=8000, log_level="info")
